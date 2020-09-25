@@ -11,6 +11,17 @@ jobs:
     name: 'Terraform'
     runs-on: ubuntu-latest
     steps:
+    - name: 'slack:start'
+      if: success()
+      id: slack
+      env:
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      uses: voxmedia/github-action-slack-notify-build@v1
+      with:
+        channel: clusterfrak-dynamics
+        status: STARTING
+        color: warning
+
     - name: Checkout
       uses: actions/checkout@v2
 
@@ -31,3 +42,23 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: github.ref == 'refs/heads/master'
+
+    - name: 'slack:success'
+      if: success()
+      env:
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      uses: voxmedia/github-action-slack-notify-build@v1
+      with:
+        channel: clusterfrak-dynamics
+        status: SUCCESS
+        color: good
+
+    - name: 'slack:failure'
+      if: failure()
+      env:
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      uses: voxmedia/github-action-slack-notify-build@v1
+      with:
+        channel: clusterfrak-dynamics
+        status: failure
+        color: danger
