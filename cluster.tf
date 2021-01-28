@@ -1,4 +1,4 @@
-resource "scaleway_k8s_cluster_beta" "this" {
+resource "scaleway_k8s_cluster" "this" {
   name             = local.cluster_name
   description      = local.cluster_description
   version          = local.kubernetes_version
@@ -33,5 +33,4 @@ resource "scaleway_k8s_cluster_beta" "this" {
   feature_gates     = local.feature_gates
   admission_plugins = local.admission_plugins
   region            = local.region
-  organization_id   = local.organization_id
 }

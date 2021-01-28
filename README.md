@@ -10,13 +10,13 @@ A terraform module to create a managed Kubernetes cluster on Scaleway Element.
 | Name | Version |
 |------|---------|
 | terraform | >= 0.13 |
-| scaleway | ~> 1.16 |
+| scaleway | ~> 2.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| scaleway | ~> 1.16 |
+| scaleway | ~> 2.0 |
 
 ## Inputs
 

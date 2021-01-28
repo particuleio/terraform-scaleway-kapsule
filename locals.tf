@@ -40,18 +40,18 @@ locals {
   feature_gates     = var.feature_gates
   admission_plugins = var.admission_plugins
   region            = var.region
-  organization_id   = var.organization_id
 
   node_pools_defaults_defaults = {
-    node_type          = "GP1-XS"
-    size               = 1
-    min_size           = 1
-    max_size           = 3
-    autohealing        = true
-    autoscaling        = false
-    placement_group_id = null
-    container_runtime  = "docker"
-    tags               = []
+    node_type           = "GP1-XS"
+    size                = 1
+    min_size            = 1
+    max_size            = 3
+    autohealing         = true
+    autoscaling         = false
+    placement_group_id  = null
+    container_runtime   = "docker"
+    tags                = []
+    wait_for_pool_ready = true
   }
 
   node_pools_defaults = merge(

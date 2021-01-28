@@ -7,7 +7,7 @@ variable "cluster_description" {
 }
 
 variable "kubernetes_version" {
-  default     = "1.19.1"
+  default     = "1.20.2"
   description = "The version of the Kubernetes cluster."
 }
 
@@ -82,11 +82,6 @@ variable "region" {
   description = "(Defaults to provider region) The region in which the cluster should be created."
 }
 
-variable "organization_id" {
-  default     = null
-  description = "(Defaults to provider organization_id) The ID of the organization the cluster is associated with."
-}
-
 variable "node_pools" {
   default     = {}
   description = "Creates and manages Scaleway Kubernetes cluster pools."
@@ -96,7 +91,7 @@ variable "node_pools" {
 variable "node_pools_defaults" {
   default     = {}
   description = "Default configuration for Kubernetes cluster pools."
-  type        = map
+  type        = map(any)
 }
 
 variable "tags" {
