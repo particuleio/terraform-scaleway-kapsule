@@ -43,15 +43,16 @@ locals {
   organization_id   = var.organization_id
 
   node_pools_defaults_defaults = {
-    node_type          = "GP1-XS"
-    size               = 1
-    min_size           = 1
-    max_size           = 3
-    autohealing        = true
-    autoscaling        = false
-    placement_group_id = null
-    container_runtime  = "docker"
-    tags               = []
+    node_type           = "GP1-XS"
+    size                = 1
+    min_size            = 1
+    max_size            = 3
+    autohealing         = true
+    autoscaling         = false
+    placement_group_id  = null
+    container_runtime   = "docker"
+    wait_for_pool_ready = false
+    tags                = []
   }
 
   node_pools_defaults = merge(
