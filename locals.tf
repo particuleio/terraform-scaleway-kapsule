@@ -66,7 +66,11 @@ locals {
     placement_group_id  = null
     container_runtime   = "docker"
     tags                = []
-    wait_for_pool_ready = true
+    wait_for_pool_ready = false
+    upgrade_policy = {
+      max_surge       = 0
+      max_unavailable = 1
+    }
   }
 
   node_pools_defaults = merge(

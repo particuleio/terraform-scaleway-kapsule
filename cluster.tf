@@ -33,7 +33,7 @@ resource "scaleway_k8s_cluster" "this" {
   }
 
   dynamic "open_id_connect_config" {
-    for_earch = local.open_id_connect_config["enabled"] ? list("open_id_connect_config") : []
+    for_each = local.open_id_connect_config["enabled"] ? list("open_id_connect_config") : []
     content {
       issuer_url      = local.open_id_connect_config["issuer_url"]
       client_id       = local.open_id_connect_config["client_id"]

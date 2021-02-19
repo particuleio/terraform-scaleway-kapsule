@@ -95,7 +95,7 @@ variable "admission_plugins" {
 }
 
 variable "apiserver_cert_sans" {
-  default     = ""
+  default     = null
   description = "Additional Subject Alternative Names for the Kubernetes API server certificate"
 }
 
