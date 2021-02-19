@@ -5,6 +5,7 @@
 
 A terraform module to create a managed Kubernetes cluster on Scaleway Element.
 
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -64,3 +65,5 @@ No Modules.
 | updated\_at | The last update date of the cluster. |
 | upgrade\_available | Set to `true` if a newer Kubernetes version is available. |
 | wildcard\_dns | The DNS wildcard that points to all ready nodes. |
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
