@@ -10,13 +10,13 @@ A terraform module to create a managed Kubernetes cluster on Scaleway Element.
 | Name | Version |
 |------|---------|
 | terraform | >= 0.13 |
-| scaleway | ~> 1.16 |
+| scaleway | ~> 2.0.0-rc.2 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| scaleway | ~> 1.16 |
+| scaleway | ~> 2.0.0-rc.2 |
 
 ## Inputs
 
@@ -24,7 +24,8 @@ A terraform module to create a managed Kubernetes cluster on Scaleway Element.
 |------|-------------|------|---------|:--------:|
 | admission\_plugins | The list of admission plugins to enable on the cluster. | `list` | `[]` | no |
 | auto\_upgrade | The auto upgrade configuration. | <pre>object({<br>    enable                        = bool<br>    maintenance_window_start_hour = number<br>    maintenance_window_day        = string<br>  })</pre> | `null` | no |
-| autoscaler\_config | The configuration options for the Kubernetes cluster autoscaler. | <pre>object({<br>    enabled                         = bool<br>    disable_scale_down              = bool<br>    scale_down_delay_after_add      = string<br>    scale_down_unneeded_time        = string<br>    estimator                       = string<br>    expander                        = string<br>    ignore_daemonsets_utilization   = bool<br>    balance_similar_node_groups     = bool<br>    expendable_pods_priority_cutoff = number<br>  })</pre> | `null` | no |
+| autoscaler\_config | The configuration options for the Kubernetes cluster autoscaler. | <pre>object({<br>    enabled                         = bool<br>    disable_scale_down              = bool<br>    scale_down_delay_after_add      = string<br>    scale_down_unneeded_time        = string<br>    estimator                       = string<br>    expander                        = string<br>    ignore_daemonsets_utilization   = bool<br>    balance_similar_node_groups     = bool<br>    expendable_pods_priority_cutoff = number<br>scale_down_utilization_sec = number <br> max_graceful_termination_sec = number  })</pre> | `null` | no |
+| open\_id\_connect\_config | The configuration options for OpenID. | <pre>object({<br>    enabled                         = bool<br>    issuer_url              = string<br>    username_claim      = string<br>    username_prefix        = string<br>    groups_claim                       = string<br>    groups_prefix                        = string<br>    required_claim   = string})</pre> | `null` | no |
 | cluster\_description | A description for the Kubernetes cluster. | `any` | n/a | yes |
 | cluster\_name | The name for the Kubernetes cluster. | `any` | n/a | yes |
 | cluster\_tags | The tags associated with the Kubernetes cluster. | `list` | `[]` | no |
@@ -32,6 +33,7 @@ A terraform module to create a managed Kubernetes cluster on Scaleway Element.
 | enable\_dashboard | Enables the Kubernetes dashboard for the Kubernetes cluster. | `bool` | `false` | no |
 | feature\_gates | The list of feature gates to enable on the cluster. | `list` | `[]` | no |
 | ingress\_controller | The ingress controller to be deployed on the Kubernetes cluster. | `string` | `"none"` | no |
+| apiserver\_cert\_sans | Additional Subject Alternative Names for the Kubernetes API server certificate | `string` | `null` | no |
 | kubernetes\_version | The version of the Kubernetes cluster. | `string` | `"1.19.1"` | no |
 | node\_pools | Creates and manages Scaleway Kubernetes cluster pools. | `any` | `{}` | no |
 | node\_pools\_defaults | Default configuration for Kubernetes cluster pools. | `map` | `{}` | no |

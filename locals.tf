@@ -19,6 +19,8 @@ locals {
     ignore_daemonsets_utilization   = true
     balance_similar_node_groups     = true
     expendable_pods_priority_cutoff = -5
+    scale_down_utilization_treshold = 0.5
+    max_graceful_termination_sec    = 600
   }
 
   autoscaler_config = merge(
@@ -37,10 +39,22 @@ locals {
     var.auto_upgrade
   )
 
-  feature_gates     = var.feature_gates
-  admission_plugins = var.admission_plugins
-  region            = var.region
-  organization_id   = var.organization_id
+  open_id_connect_config = {
+    enabled         = false
+    issuer_url      = var.open_id_connect_config["issuer_url"]
+    client_id       = var.open_id_connect_config["client_id"]
+    username_claim  = var.open_id_connect_config["username_claim"]
+    username_prefix = var.open_id_connect_config["username_prefix"]
+    groups_claim    = var.open_id_connect_config["groups_claim"]
+    groups_prefix   = var.open_id_connect_config["groups_prefix"]
+    required_claim  = var.open_id_connect_config["required_claim"]
+  }
+
+
+  apiserver_cert_sans = var.apiserver_cert_sans
+  feature_gates       = var.feature_gates
+  admission_plugins   = var.admission_plugins
+  region              = var.region
 
   node_pools_defaults_defaults = {
     node_type           = "GP1-XS"
@@ -51,8 +65,12 @@ locals {
     autoscaling         = false
     placement_group_id  = null
     container_runtime   = "docker"
-    wait_for_pool_ready = false
     tags                = []
+    wait_for_pool_ready = false
+    upgrade_policy = {
+      max_surge       = 0
+      max_unavailable = 1
+    }
   }
 
   node_pools_defaults = merge(
