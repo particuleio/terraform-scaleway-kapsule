@@ -65,5 +65,4 @@ No Modules.
 | updated\_at | The last update date of the cluster. |
 | upgrade\_available | Set to `true` if a newer Kubernetes version is available. |
 | wildcard\_dns | The DNS wildcard that points to all ready nodes. |
-
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
