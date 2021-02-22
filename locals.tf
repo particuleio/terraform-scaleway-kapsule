@@ -39,17 +39,14 @@ locals {
     var.auto_upgrade
   )
 
-  open_id_connect_config = {
-    enabled         = false
-    issuer_url      = var.open_id_connect_config["issuer_url"]
-    client_id       = var.open_id_connect_config["client_id"]
-    username_claim  = var.open_id_connect_config["username_claim"]
-    username_prefix = var.open_id_connect_config["username_prefix"]
-    groups_claim    = var.open_id_connect_config["groups_claim"]
-    groups_prefix   = var.open_id_connect_config["groups_prefix"]
-    required_claim  = var.open_id_connect_config["required_claim"]
+  open_id_connect_config_default = {
+    enabled = false
   }
 
+  open_id_connect_config = merge(
+    local.open_id_connect_config_default,
+    var.open_id_connect_config
+  )
 
   apiserver_cert_sans = var.apiserver_cert_sans
   feature_gates       = var.feature_gates
@@ -78,5 +75,9 @@ locals {
     var.node_pools_defaults
   )
 
-  node_pools = var.node_pools
+  node_pools = { for k, v in var.node_pools : k => merge(
+    local.node_pools_defaults,
+    v
+    )
+  }
 }
