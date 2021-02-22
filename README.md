@@ -48,7 +48,7 @@ No Modules.
 | kubernetes\_version | The version of the Kubernetes cluster. | `string` | `"1.20.2"` | no |
 | node\_pools | Creates and manages Scaleway Kubernetes cluster pools. | `any` | `{}` | no |
 | node\_pools\_defaults | Default configuration for Kubernetes cluster pools. | `map(any)` | `{}` | no |
-| open\_id\_connect\_config | The OpenID Connect configuration of the cluster | <pre>object({<br>    enabled         = bool<br>    issuer_url      = string<br>    client_id       = string<br>    username_claim  = string<br>    username_prefix = string<br>    groups_claim    = string<br>    groups_prefix   = string<br>    required_claim  = list(string)<br>  })</pre> | `null` | no |
+| open\_id\_connect\_config | The OpenID Connect configuration of the cluster | <pre>object({<br>    enabled         = bool<br>    issuer_url      = string<br>    client_id       = string<br>    username_claim  = string<br>    username_prefix = string<br>    groups_claim    = list(string)<br>    groups_prefix   = string<br>    required_claim  = list(string)<br>  })</pre> | `null` | no |
 | region | (Defaults to provider region) The region in which the cluster should be created. | `any` | `null` | no |
 | tags | Tags applied to all ressources. | `list` | `[]` | no |
 

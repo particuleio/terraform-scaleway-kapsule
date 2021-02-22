@@ -77,7 +77,7 @@ variable "open_id_connect_config" {
     client_id       = string
     username_claim  = string
     username_prefix = string
-    groups_claim    = string
+    groups_claim    = list(string)
     groups_prefix   = string
     required_claim  = list(string)
   })
