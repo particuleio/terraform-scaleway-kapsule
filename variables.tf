@@ -79,7 +79,7 @@ variable "open_id_connect_config" {
     username_prefix = string
     groups_claim    = string
     groups_prefix   = string
-    required_claim  = list
+    required_claim  = list(string)
   })
   description = "The OpenID Connect configuration of the cluster"
 }
