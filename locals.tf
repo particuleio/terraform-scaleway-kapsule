@@ -1,13 +1,15 @@
 locals {
 
-  cluster_name        = var.cluster_name
-  cluster_description = var.cluster_description
-  kubernetes_version  = var.kubernetes_version
-  cni_plugin          = var.cni_plugin
-  enable_dashboard    = var.enable_dashboard
-  ingress_controller  = var.ingress_controller
-  cluster_tags        = var.cluster_tags
-  tags                = var.tags
+  cluster_name                = var.cluster_name
+  cluster_description         = var.cluster_description
+  kubernetes_version          = var.kubernetes_version
+  project_id                  = var.project_id
+  cni_plugin                  = var.cni_plugin
+  enable_dashboard            = var.enable_dashboard
+  ingress_controller          = var.ingress_controller
+  cluster_tags                = var.cluster_tags
+  tags                        = var.tags
+  delete_additional_resources = var.delete_additional_resources
 
   autoscaler_config_default = {
     enabled                         = false
@@ -52,6 +54,7 @@ locals {
   feature_gates       = var.feature_gates
   admission_plugins   = var.admission_plugins
   region              = var.region
+  zone                = var.zone
 
   node_pools_defaults_defaults = {
     node_type           = "GP1-XS"
@@ -64,6 +67,7 @@ locals {
     container_runtime   = "docker"
     tags                = []
     wait_for_pool_ready = false
+    kubelet_args        = ""
     upgrade_policy = {
       max_surge       = 0
       max_unavailable = 1

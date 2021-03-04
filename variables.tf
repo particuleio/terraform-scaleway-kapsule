@@ -7,8 +7,13 @@ variable "cluster_description" {
 }
 
 variable "kubernetes_version" {
-  default     = "1.20.2"
+  default     = "1.20.4"
   description = "The version of the Kubernetes cluster."
+}
+
+variable "project_id" {
+  default     = null
+  description = "(Defaults to provider project_id) The ID of the project the cluster is associated with."
 }
 
 variable "cni_plugin" {
@@ -104,6 +109,11 @@ variable "region" {
   description = "(Defaults to provider region) The region in which the cluster should be created."
 }
 
+variable "zone" {
+  default     = null
+  description = "(Defaults to provider zone) The zone in which the cluster should be created."
+}
+
 variable "node_pools" {
   default     = {}
   description = "Creates and manages Scaleway Kubernetes cluster pools."
@@ -119,4 +129,9 @@ variable "node_pools_defaults" {
 variable "tags" {
   default     = []
   description = "Tags applied to all ressources."
+}
+
+variable "delete_additional_resources" {
+  default     = false
+  description = "Delete additional resources like block volumes and loadbalancers that were created in Kubernetes on cluster deletion."
 }
