@@ -53,7 +53,6 @@ No Modules.
 | project\_id | (Defaults to provider project\_id) The ID of the project the cluster is associated with. | `any` | `null` | no |
 | region | (Defaults to provider region) The region in which the cluster should be created. | `any` | `null` | no |
 | tags | Tags applied to all ressources. | `list` | `[]` | no |
-| zone | (Defaults to provider zone) The zone in which the cluster should be created. | `any` | `null` | no |
 
 ## Outputs
 

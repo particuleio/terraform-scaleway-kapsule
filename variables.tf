@@ -109,11 +109,6 @@ variable "region" {
   description = "(Defaults to provider region) The region in which the cluster should be created."
 }
 
-variable "zone" {
-  default     = null
-  description = "(Defaults to provider zone) The zone in which the cluster should be created."
-}
-
 variable "node_pools" {
   default     = {}
   description = "Creates and manages Scaleway Kubernetes cluster pools."

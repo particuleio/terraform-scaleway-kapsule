@@ -54,7 +54,6 @@ locals {
   feature_gates       = var.feature_gates
   admission_plugins   = var.admission_plugins
   region              = var.region
-  zone                = var.zone
 
   node_pools_defaults_defaults = {
     node_type           = "GP1-XS"
@@ -67,7 +66,8 @@ locals {
     container_runtime   = "docker"
     tags                = []
     wait_for_pool_ready = false
-    kubelet_args        = ""
+    kubelet_args        = null
+    zone                = null
     upgrade_policy = {
       max_surge       = 0
       max_unavailable = 1

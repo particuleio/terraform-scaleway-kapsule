@@ -1,7 +1,7 @@
 resource "scaleway_k8s_pool" "this" {
   for_each           = local.node_pools
   region             = local.region
-  zone               = local.zone
+  zone               = lookup(each.value, "zone", local.node_pools_defaults["zone"])
   cluster_id         = scaleway_k8s_cluster.this.id
   name               = each.key
   node_type          = lookup(each.value, "node_type", local.node_pools_defaults["node_type"])
