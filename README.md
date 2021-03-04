@@ -42,13 +42,15 @@ No Modules.
 | cluster\_name | The name for the Kubernetes cluster. | `any` | n/a | yes |
 | cluster\_tags | The tags associated with the Kubernetes cluster. | `list` | `[]` | no |
 | cni\_plugin | The Container Network Interface (CNI) for the Kubernetes cluster. | `string` | `"cilium"` | no |
+| delete\_additional\_resources | Delete additional resources like block volumes and loadbalancers that were created in Kubernetes on cluster deletion. | `bool` | `false` | no |
 | enable\_dashboard | Enables the Kubernetes dashboard for the Kubernetes cluster. | `bool` | `false` | no |
 | feature\_gates | The list of feature gates to enable on the cluster. | `list` | `[]` | no |
 | ingress\_controller | The ingress controller to be deployed on the Kubernetes cluster. | `string` | `"none"` | no |
-| kubernetes\_version | The version of the Kubernetes cluster. | `string` | `"1.20.2"` | no |
+| kubernetes\_version | The version of the Kubernetes cluster. | `string` | `"1.20.4"` | no |
 | node\_pools | Creates and manages Scaleway Kubernetes cluster pools. | `any` | `{}` | no |
 | node\_pools\_defaults | Default configuration for Kubernetes cluster pools. | `map(any)` | `{}` | no |
 | open\_id\_connect\_config | The OpenID Connect configuration of the cluster | <pre>object({<br>    enabled         = bool<br>    issuer_url      = string<br>    client_id       = string<br>    username_claim  = string<br>    username_prefix = string<br>    groups_claim    = list(string)<br>    groups_prefix   = string<br>    required_claim  = list(string)<br>  })</pre> | `null` | no |
+| project\_id | (Defaults to provider project\_id) The ID of the project the cluster is associated with. | `any` | `null` | no |
 | region | (Defaults to provider region) The region in which the cluster should be created. | `any` | `null` | no |
 | tags | Tags applied to all ressources. | `list` | `[]` | no |
 

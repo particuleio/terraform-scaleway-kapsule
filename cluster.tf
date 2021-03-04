@@ -1,11 +1,13 @@
 resource "scaleway_k8s_cluster" "this" {
-  name             = local.cluster_name
-  description      = local.cluster_description
-  version          = local.kubernetes_version
-  cni              = local.cni_plugin
-  enable_dashboard = local.enable_dashboard
-  ingress          = local.ingress_controller
-  tags             = distinct(compact(concat(local.cluster_tags, local.tags)))
+  name                        = local.cluster_name
+  description                 = local.cluster_description
+  project_id                  = local.project_id
+  version                     = local.kubernetes_version
+  cni                         = local.cni_plugin
+  enable_dashboard            = local.enable_dashboard
+  ingress                     = local.ingress_controller
+  tags                        = distinct(compact(concat(local.cluster_tags, local.tags)))
+  delete_additional_resources = local.delete_additional_resources
 
   dynamic "autoscaler_config" {
     for_each = local.autoscaler_config["enabled"] ? list("autoscaler_config") : []
