@@ -30,12 +30,12 @@ output "kubeconfig" {
 }
 
 output "cluster_ca_cert" {
-  value       = base64decode(yamldecode(scaleway_k8s_cluster.this.kubeconfig[0]).cluster.0.cluster.certificate-authority-data)
+  value       = base64decode(scaleway_k8s_cluster.this.kubeconfig.0.cluster.0.cluster.certificate-authority-data)
   description = "PEM based cluster ca certificate"
 }
 
 output "token" {
-  value       = yamldecode(scaleway_k8s_cluster.this.kubeconfig[0]).users.0.user.token
+  value       = scaleway_k8s_cluster.this.kubeconfig.0.users.0.user.token
   description = "Token for authenticating to API-Server"
 }
 
