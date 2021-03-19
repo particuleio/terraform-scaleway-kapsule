@@ -29,6 +29,16 @@ output "kubeconfig" {
   sensitive   = true
 }
 
+output "cluster_ca_cert" {
+  value       = base64decode(yamldecode(scaleway_k8s_cluster.this.kubeconfig).cluster.0.cluster.certificate-authority-data)
+  description = "PEM based cluster ca certificate"
+}
+
+output "token" {
+  value       = yamldecode(scaleway_k8s_cluster.this.kubeconfig).users.0.user.token
+  description = "Token for authenticating to API-Server"
+}
+
 output "status" {
   value       = scaleway_k8s_cluster.this.status
   description = "The status of the Kubernetes cluster."
