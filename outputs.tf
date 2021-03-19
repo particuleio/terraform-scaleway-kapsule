@@ -24,19 +24,19 @@ output "wildcard_dns" {
 }
 
 output "kubeconfig" {
-  value       = scaleway_k8s_cluster.this.kubeconfig
+  value       = scaleway_k8s_cluster.this.kubeconfig.0.config_file
   description = "The Kubernetes configuration."
 }
 
-# output "cluster_ca_cert" {
-# value       = base64decode(scaleway_k8s_cluster.this.kubeconfig.0.cluster.0.cluster.certificate-authority-data)
-# description = "PEM based cluster ca certificate"
-# }
-#
-# output "token" {
-# value       = scaleway_k8s_cluster.this.kubeconfig.0.users.0.user.token
-# description = "Token for authenticating to API-Server"
-# }
+output "cluster_ca_cert" {
+  value       = scaleway_k8s_cluster.this.kubeconfig.0.cluster_ca_certificate
+  description = "PEM based cluster ca certificate"
+}
+
+output "token" {
+  value       = scaleway_k8s_cluster.this.kubeconfig.0.token
+  description = "Token for authenticating to API-Server"
+}
 
 output "status" {
   value       = scaleway_k8s_cluster.this.status
