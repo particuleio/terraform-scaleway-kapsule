@@ -26,21 +26,6 @@ variable "cni_plugin" {
   }
 }
 
-variable "enable_dashboard" {
-  default     = false
-  description = "Enables the Kubernetes dashboard for the Kubernetes cluster."
-}
-
-variable "ingress_controller" {
-  default     = "none"
-  description = "The ingress controller to be deployed on the Kubernetes cluster."
-
-  validation {
-    condition     = contains(["nginx", "traefik", "traefik2", "none"], var.ingress_controller)
-    error_message = "Values can only be \"nginx\", \"treafik\" or \"traefik2\"."
-  }
-}
-
 variable "cluster_tags" {
   default     = []
   description = "The tags associated with the Kubernetes cluster."

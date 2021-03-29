@@ -4,8 +4,6 @@ resource "scaleway_k8s_cluster" "this" {
   project_id                  = local.project_id
   version                     = local.kubernetes_version
   cni                         = local.cni_plugin
-  enable_dashboard            = local.enable_dashboard
-  ingress                     = local.ingress_controller
   tags                        = distinct(compact(concat(local.cluster_tags, local.tags)))
   delete_additional_resources = local.delete_additional_resources
 

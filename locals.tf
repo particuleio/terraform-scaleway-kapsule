@@ -5,8 +5,6 @@ locals {
   kubernetes_version          = var.kubernetes_version
   project_id                  = var.project_id
   cni_plugin                  = var.cni_plugin
-  enable_dashboard            = var.enable_dashboard
-  ingress_controller          = var.ingress_controller
   cluster_tags                = var.cluster_tags
   tags                        = var.tags
   delete_additional_resources = var.delete_additional_resources
