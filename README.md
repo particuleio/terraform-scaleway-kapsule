@@ -57,11 +57,14 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_apiserver_url"></a> [apiserver\_url](#output\_apiserver\_url) | The URL of the Kubernetes API server. |
+| <a name="output_cluster_ca_cert"></a> [cluster\_ca\_cert](#output\_cluster\_ca\_cert) | PEM based cluster ca certificate. |
 | <a name="output_created_at"></a> [created\_at](#output\_created\_at) | The creation date of the cluster. |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the cluster. |
 | <a name="output_kubeconfig"></a> [kubeconfig](#output\_kubeconfig) | The Kubernetes configuration. |
+| <a name="output_kubeconfig_file"></a> [kubeconfig\_file](#output\_kubeconfig\_file) | The Kubernetes configuration file. |
 | <a name="output_node_pools"></a> [node\_pools](#output\_node\_pools) | Node Pools configuration and status. |
 | <a name="output_status"></a> [status](#output\_status) | The status of the Kubernetes cluster. |
+| <a name="output_token"></a> [token](#output\_token) | Token for authenticating to API-Server. |
 | <a name="output_updated_at"></a> [updated\_at](#output\_updated\_at) | The last update date of the cluster. |
 | <a name="output_upgrade_available"></a> [upgrade\_available](#output\_upgrade\_available) | Set to `true` if a newer Kubernetes version is available. |
 | <a name="output_wildcard_dns"></a> [wildcard\_dns](#output\_wildcard\_dns) | The DNS wildcard that points to all ready nodes. |
