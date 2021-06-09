@@ -29,6 +29,23 @@ output "kubeconfig" {
   sensitive   = true
 }
 
+output "kubeconfig_file" {
+  value       = scaleway_k8s_cluster.this.kubeconfig.0.config_file
+  description = "The Kubernetes configuration file."
+  sensitive   = true
+}
+
+output "cluster_ca_cert" {
+  value       = scaleway_k8s_cluster.this.kubeconfig.0.cluster_ca_certificate
+  description = "PEM based cluster ca certificate."
+}
+
+output "token" {
+  value       = scaleway_k8s_cluster.this.kubeconfig.0.token
+  description = "Token for authenticating to API-Server."
+  sensitive   = true
+}
+
 output "status" {
   value       = scaleway_k8s_cluster.this.status
   description = "The status of the Kubernetes cluster."
