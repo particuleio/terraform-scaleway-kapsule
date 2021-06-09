@@ -3,6 +3,11 @@ output "id" {
   description = "The ID of the cluster."
 }
 
+output "name" {
+  value       = scaleway_k8s_cluster.this.name
+  description = "The name of the cluster."
+}
+
 output "created_at" {
   value       = scaleway_k8s_cluster.this.created_at
   description = "The creation date of the cluster."

@@ -62,6 +62,7 @@ No modules.
 | <a name="output_id"></a> [id](#output\_id) | The ID of the cluster. |
 | <a name="output_kubeconfig"></a> [kubeconfig](#output\_kubeconfig) | The Kubernetes configuration. |
 | <a name="output_kubeconfig_file"></a> [kubeconfig\_file](#output\_kubeconfig\_file) | The Kubernetes configuration file. |
+| <a name="output_name"></a> [name](#output\_name) | The name of the cluster. |
 | <a name="output_node_pools"></a> [node\_pools](#output\_node\_pools) | Node Pools configuration and status. |
 | <a name="output_status"></a> [status](#output\_status) | The status of the Kubernetes cluster. |
 | <a name="output_token"></a> [token](#output\_token) | Token for authenticating to API-Server. |
