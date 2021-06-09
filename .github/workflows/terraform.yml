@@ -16,31 +16,20 @@ jobs:
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
-
-    - name: Terraform Init
-      run: terraform init -backend=false
-
-    - name: Terraform Format
-      run: terraform fmt -check
+      with:
+        terraform_version: ${{ secrets.TERRAFORM_VERSION }}
 
     - uses: actions/setup-python@v2
 
-    - name: Install terraform-docs
+    - name: Install terraform tooling
       run: |
-        # Get the download url of the latest version of terraform-docs
-        tf_docs_download_url=$(curl -s https://api.github.com/repos/terraform-docs/terraform-docs/releases/latest | jq -rc '.assets[] | select( .name | contains("linux-amd64")).browser_download_url')
-        mkdir -p $GITHUB_WORKSPACE/bin
-        curl -Lo $GITHUB_WORKSPACE/bin/terraform-docs $tf_docs_download_url
-        chmod +x $GITHUB_WORKSPACE/bin/terraform-docs
-        echo "$GITHUB_WORKSPACE/bin" >> $GITHUB_PATH
+        curl -L "$(curl -s https://api.github.com/repos/terraform-docs/terraform-docs/releases/latest | grep -o -E "https://.+?-linux-amd64.tar.gz")" > terraform-docs.tgz && tar xzf terraform-docs.tgz terraform-docs && chmod +x terraform-docs && sudo mv terraform-docs /usr/bin/
+        curl -L "$(curl -s https://api.github.com/repos/terraform-linters/tflint/releases/latest | grep -o -E "https://.+?_linux_amd64.zip")" > tflint.zip && unzip tflint.zip tflint && rm tflint.zip && sudo mv tflint /usr/bin/
 
-    - name: Check Docs
-      uses: pre-commit/action@v2.0.0
+    - name: Check modules
+      uses: pre-commit/action@v2.0.3
       with:
-        extra_args: --show-diff-on-failure --all-files terraform_docs
-
-    - name: Terraform Validate
-      run: terraform validate
+        extra_args: --show-diff-on-failure --all-files
 
     - name: Semantic Release
       uses: cycjimmy/semantic-release-action@v2
