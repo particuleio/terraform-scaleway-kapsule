@@ -61,7 +61,7 @@ locals {
     autohealing         = true
     autoscaling         = false
     placement_group_id  = null
-    container_runtime   = "docker"
+    container_runtime   = "containerd"
     tags                = []
     wait_for_pool_ready = false
     kubelet_args        = null
