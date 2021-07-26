@@ -19,4 +19,10 @@ resource "scaleway_k8s_pool" "this" {
   }
   wait_for_pool_ready = lookup(each.value, "wait_for_pool_ready", local.node_pools_defaults["wait_for_pool_ready"])
   tags                = distinct(compact(concat(lookup(each.value, "tags", local.node_pools_defaults["tags"]), local.tags)))
+
+  lifecycle {
+    ignore_changes = [
+      size
+    ]
+  }
 }
