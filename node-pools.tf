@@ -1,6 +1,6 @@
 resource "scaleway_k8s_pool" "this" {
   for_each           = local.node_pools
-  region             = local.region
+  region             = var.region
   zone               = lookup(each.value, "zone", local.node_pools_defaults["zone"])
   cluster_id         = scaleway_k8s_cluster.this.id
   name               = each.key
@@ -18,7 +18,7 @@ resource "scaleway_k8s_pool" "this" {
     max_unavailable = lookup(each.value["upgrade_policy"], "max_unavailable", local.node_pools_defaults["upgrade_policy"]["max_unavailable"])
   }
   wait_for_pool_ready = lookup(each.value, "wait_for_pool_ready", local.node_pools_defaults["wait_for_pool_ready"])
-  tags                = distinct(compact(concat(lookup(each.value, "tags", local.node_pools_defaults["tags"]), local.tags)))
+  tags                = distinct(compact(concat(lookup(each.value, "tags", local.node_pools_defaults["tags"]), var.tags)))
 
   lifecycle {
     ignore_changes = [
