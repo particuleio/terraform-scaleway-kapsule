@@ -10,7 +10,7 @@ locals {
     placement_group_id  = null
     container_runtime   = "containerd"
     tags                = []
-    wait_for_pool_ready = false
+    wait_for_pool_ready = true
     kubelet_args        = null
     zone                = null
     upgrade_policy = {
