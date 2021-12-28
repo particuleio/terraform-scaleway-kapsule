@@ -17,6 +17,7 @@ A terraform module to create a managed Kubernetes cluster on Scaleway Element.
 
 | Name | Version |
 |------|---------|
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
 | <a name="provider_scaleway"></a> [scaleway](#provider\_scaleway) | 2.2.0-rc.0 |
 
 ## Modules
@@ -27,6 +28,7 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [random_pet.this](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/pet) | resource |
 | [scaleway_k8s_cluster.this](https://registry.terraform.io/providers/particuleio/scaleway/2.2.0-rc.0/docs/resources/k8s_cluster) | resource |
 | [scaleway_k8s_pool.this](https://registry.terraform.io/providers/particuleio/scaleway/2.2.0-rc.0/docs/resources/k8s_pool) | resource |
 
