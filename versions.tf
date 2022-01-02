@@ -4,8 +4,8 @@ terraform {
 
   required_providers {
     scaleway = {
-      source  = "particuleio/scaleway"
-      version = "2.2.0-rc.0"
+      source  = "scaleway/scaleway"
+      version = "2.2.0"
     }
   }
   required_version = ">= 0.14"
