@@ -19,7 +19,7 @@ jobs:
       with:
         terraform_version: ${{ secrets.TERRAFORM_VERSION }}
 
-    - uses: actions/setup-python@v3
+    - uses: actions/setup-python@v4
 
     - name: Install terraform tooling
       run: |
