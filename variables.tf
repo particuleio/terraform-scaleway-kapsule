@@ -44,16 +44,16 @@ variable "cluster_tags" {
 variable "autoscaler_config" {
   default = []
   type = list(object({
-    disable_scale_down               = optional(bool)
-    scale_down_delay_after_add       = optional(string)
-    scale_down_unneeded_time         = optional(string)
-    estimator                        = optional(string)
-    expander                         = optional(string)
-    ignore_daemonsets_utilization    = optional(bool)
-    balance_similar_node_groups      = optional(bool)
-    expendable_pods_priority_cutoff  = optional(number)
-    scale_down_utilization_threshold = optional(number)
-    max_graceful_termination_sec     = optional(number)
+    disable_scale_down               = bool
+    scale_down_delay_after_add       = string
+    scale_down_unneeded_time         = string
+    estimator                        = string
+    expander                         = string
+    ignore_daemonsets_utilization    = bool
+    balance_similar_node_groups      = bool
+    expendable_pods_priority_cutoff  = number
+    scale_down_utilization_threshold = number
+    max_graceful_termination_sec     = number
   }))
   description = "The configuration options for the Kubernetes cluster autoscaler"
 }
