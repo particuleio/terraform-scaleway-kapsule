@@ -73,11 +73,11 @@ variable "open_id_connect_config" {
   type = list(object({
     issuer_url      = string
     client_id       = string
-    username_claim  = optional(string)
-    username_prefix = optional(string)
-    groups_claim    = optional(list(string))
-    groups_prefix   = optional(string)
-    required_claim  = optional(list(string))
+    username_claim  = string
+    username_prefix = string
+    groups_claim    = list(string)
+    groups_prefix   = string
+    required_claim  = list(string)
   }))
   description = "The OpenID Connect configuration of the cluster"
 }
