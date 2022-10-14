@@ -1,24 +1,25 @@
 resource "scaleway_k8s_pool" "this" {
   for_each           = local.node_pools
   region             = var.region
-  zone               = lookup(each.value, "zone", local.node_pools_defaults["zone"])
+  zone               = try(each.value.zone, null)
   cluster_id         = scaleway_k8s_cluster.this.id
   name               = "${each.key}-${random_pet.this[each.key].id}"
-  node_type          = lookup(each.value, "node_type", local.node_pools_defaults["node_type"])
-  size               = lookup(each.value, "size", local.node_pools_defaults["size"])
-  min_size           = lookup(each.value, "min_size", local.node_pools_defaults["min_size"])
-  max_size           = lookup(each.value, "max_size", local.node_pools_defaults["max_size"])
-  autoscaling        = lookup(each.value, "autoscaling", local.node_pools_defaults["autoscaling"])
-  autohealing        = lookup(each.value, "autohealing", local.node_pools_defaults["autohealing"])
-  container_runtime  = lookup(each.value, "container_runtime", local.node_pools_defaults["container_runtime"])
-  placement_group_id = lookup(each.value, "placement_group_id", local.node_pools_defaults["placement_group_id"])
-  kubelet_args       = lookup(each.value, "kubelet_args", local.node_pools_defaults["kubelet_args"])
+  node_type          = try(each.value.node_type, null)
+  size               = try(each.value.size, null)
+  min_size           = try(each.value.min_size, null)
+  max_size           = try(each.value.max_size, null)
+  autoscaling        = try(each.value.autoscaling, null)
+  autohealing        = try(each.value.autohealing, null)
+  container_runtime  = try(each.value.container_runtime, null)
+  placement_group_id = try(each.value.placement_group_id, null)
+  kubelet_args       = try(each.value.kubelet_args, null)
+
   upgrade_policy {
-    max_surge       = lookup(each.value["upgrade_policy"], "max_surge", local.node_pools_defaults["upgrade_policy"]["max_surge"])
-    max_unavailable = lookup(each.value["upgrade_policy"], "max_unavailable", local.node_pools_defaults["upgrade_policy"]["max_unavailable"])
+    max_surge       = try(each.value.upgrade_policy.max_surge, null)
+    max_unavailable = try(each.value.upgrade_policy.max_unavailable, null)
   }
-  wait_for_pool_ready = lookup(each.value, "wait_for_pool_ready", local.node_pools_defaults["wait_for_pool_ready"])
-  tags                = distinct(compact(concat(lookup(each.value, "tags", local.node_pools_defaults["tags"]), var.tags)))
+  wait_for_pool_ready = try(each.value.wait_for_pool_ready, null)
+  tags                = distinct(compact(concat(try(each.value.tags, null), var.tags)))
 
   lifecycle {
     create_before_destroy = true
@@ -28,9 +29,9 @@ resource "scaleway_k8s_pool" "this" {
 resource "random_pet" "this" {
   for_each = local.node_pools
   keepers = {
-    placement_group_id = lookup(each.value, "placement_group_id", "")
-    zone               = lookup(each.value, "zone", "")
-    container_runtime  = lookup(each.value, "container_runtime", "")
-    node_type          = lookup(each.value, "node_type", "")
+    placement_group_id = try(each.value.placement_group_id, null)
+    zone               = try(each.value.zone, null)
+    container_runtime  = try(each.value.container_runtime, null)
+    node_type          = try(each.value.node_type, null)
   }
 }

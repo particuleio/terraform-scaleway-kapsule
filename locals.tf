@@ -6,17 +6,10 @@ locals {
     min_size            = 1
     max_size            = 3
     autohealing         = true
-    autoscaling         = false
-    placement_group_id  = null
-    container_runtime   = "containerd"
+    autoscaling         = true
     tags                = []
     wait_for_pool_ready = true
-    kubelet_args        = null
-    zone                = null
-    upgrade_policy = {
-      max_surge       = 0
-      max_unavailable = 1
-    }
+    container_runtime   = "containerd"
   }
 
   node_pools_defaults = merge(

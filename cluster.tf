@@ -6,28 +6,26 @@ resource "scaleway_k8s_cluster" "this" {
   cni         = var.cluster_type == "multicloud" ? "kilo" : var.cni_plugin
   tags        = distinct(compact(concat(var.cluster_tags, var.tags)))
 
-  dynamic "autoscaler_config" {
-    for_each = toset(var.autoscaler_config)
-    content {
-      disable_scale_down               = lookup(autoscaler_config.value, "disable_scale_down", null)
-      scale_down_delay_after_add       = lookup(autoscaler_config.value, "scale_down_delay_after_add", null)
-      scale_down_unneeded_time         = lookup(autoscaler_config.value, "scale_down_unneeded_time", null)
-      estimator                        = lookup(autoscaler_config.value, "estimator", null)
-      expander                         = lookup(autoscaler_config.value, "expander", null)
-      ignore_daemonsets_utilization    = lookup(autoscaler_config.value, "ignore_daemonsets_utilization", null)
-      balance_similar_node_groups      = lookup(autoscaler_config.value, "balance_similar_node_groups", null)
-      expendable_pods_priority_cutoff  = lookup(autoscaler_config.value, "expendable_pods_priority_cutoff", null)
-      scale_down_utilization_threshold = lookup(autoscaler_config.value, "scale_down_utilization_threshold", null)
-      max_graceful_termination_sec     = lookup(autoscaler_config.value, "max_graceful_termination_sec", null)
-    }
+  autoscaler_config {
+    disable_scale_down               = var.autoscaler_config.disable_scale_down
+    scale_down_delay_after_add       = var.autoscaler_config.scale_down_delay_after_add
+    scale_down_unneeded_time         = var.autoscaler_config.scale_down_unneeded_time
+    estimator                        = var.autoscaler_config.estimator
+    expander                         = var.autoscaler_config.expander
+    ignore_daemonsets_utilization    = var.autoscaler_config.ignore_daemonsets_utilization
+    balance_similar_node_groups      = var.autoscaler_config.balance_similar_node_groups
+    expendable_pods_priority_cutoff  = var.autoscaler_config.expendable_pods_priority_cutoff
+    scale_down_utilization_threshold = var.autoscaler_config.scale_down_utilization_threshold
+    max_graceful_termination_sec     = var.autoscaler_config.max_graceful_termination_sec
   }
 
+
   dynamic "auto_upgrade" {
-    for_each = toset(var.auto_upgrade)
+    for_each = var.auto_upgrade.enable ? [1] : []
     content {
-      enable                        = lookup(auto_upgrade.value, "enable", null)
-      maintenance_window_start_hour = lookup(auto_upgrade.value, "maintenance_window_start_hour", null)
-      maintenance_window_day        = lookup(auto_upgrade.value, "maintenance_window_day", null)
+      enable                        = var.auto_upgrade.enable
+      maintenance_window_start_hour = var.auto_upgrade.maintenance_window_start_hour
+      maintenance_window_day        = var.auto_upgrade.maintenance_window_day
     }
   }
 
@@ -36,15 +34,15 @@ resource "scaleway_k8s_cluster" "this" {
   apiserver_cert_sans = var.apiserver_cert_sans
 
   dynamic "open_id_connect_config" {
-    for_each = toset(var.open_id_connect_config)
+    for_each = var.open_id_connect_config.issuer_url != null || var.open_id_connect_config.client_id != null ? [1] : []
     content {
-      issuer_url      = lookup(open_id_connect_config.value, "issuer_url", null)
-      client_id       = lookup(open_id_connect_config.value, "client_id", null)
-      username_claim  = lookup(open_id_connect_config.value, "username_claim", null)
-      username_prefix = lookup(open_id_connect_config.value, "username_prefix", null)
-      groups_claim    = lookup(open_id_connect_config.value, "groups_claim", null)
-      groups_prefix   = lookup(open_id_connect_config.value, "groups_prefix", null)
-      required_claim  = lookup(open_id_connect_config.value, "required_claim", null)
+      issuer_url      = var.open_id_connect_config.issuer_url
+      client_id       = var.open_id_connect_config.client_id
+      username_claim  = var.open_id_connect_config.username_claim
+      username_prefix = var.open_id_connect_config.username_prefix
+      groups_claim    = var.open_id_connect_config.groups_claim
+      groups_prefix   = var.open_id_connect_config.groups_prefix
+      required_claim  = var.open_id_connect_config.required_claim
     }
   }
 
