@@ -1,15 +1,13 @@
 locals {
 
   node_pools_defaults_defaults = {
-    node_type           = "GP1-XS"
-    size                = 1
-    min_size            = 1
-    max_size            = 3
-    autohealing         = true
-    autoscaling         = true
-    tags                = []
-    wait_for_pool_ready = true
-    container_runtime   = "containerd"
+    use_random_pet_suffix = true
+    node_type             = "GP1-XS"
+    autohealing           = true
+    autoscaling           = true
+    tags                  = []
+    wait_for_pool_ready   = true
+    container_runtime     = "containerd"
   }
 
   node_pools_defaults = merge(

@@ -3,7 +3,7 @@ resource "scaleway_k8s_pool" "this" {
   region             = var.region
   zone               = try(each.value.zone, null)
   cluster_id         = scaleway_k8s_cluster.this.id
-  name               = "${each.key}-${random_pet.this[each.key].id}"
+  name               = "${each.key}${each.value.use_random_pet_suffix ? "-${random_pet.this[each.key].id}" : ""}"
   node_type          = try(each.value.node_type, null)
   size               = try(each.value.size, null)
   min_size           = try(each.value.min_size, null)
