@@ -43,6 +43,7 @@ output "kubeconfig_file" {
 output "cluster_ca_cert" {
   value       = scaleway_k8s_cluster.this.kubeconfig[0].cluster_ca_certificate
   description = "PEM based cluster ca certificate."
+  sensitive   = true
 }
 
 output "token" {
