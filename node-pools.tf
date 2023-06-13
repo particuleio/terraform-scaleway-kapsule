@@ -1,18 +1,20 @@
 resource "scaleway_k8s_pool" "this" {
-  for_each           = local.node_pools
-  region             = var.region
-  zone               = try(each.value.zone, null)
-  cluster_id         = scaleway_k8s_cluster.this.id
-  name               = "${each.key}${each.value.use_random_pet_suffix ? "-${random_pet.this[each.key].id}" : ""}"
-  node_type          = try(each.value.node_type, null)
-  size               = try(each.value.size, null)
-  min_size           = try(each.value.min_size, null)
-  max_size           = try(each.value.max_size, null)
-  autoscaling        = try(each.value.autoscaling, null)
-  autohealing        = try(each.value.autohealing, null)
-  container_runtime  = try(each.value.container_runtime, null)
-  placement_group_id = try(each.value.placement_group_id, null)
-  kubelet_args       = try(each.value.kubelet_args, null)
+  for_each               = local.node_pools
+  region                 = var.region
+  zone                   = try(each.value.zone, null)
+  cluster_id             = scaleway_k8s_cluster.this.id
+  name                   = "${each.key}${each.value.use_random_pet_suffix ? "-${random_pet.this[each.key].id}" : ""}"
+  node_type              = try(each.value.node_type, null)
+  size                   = try(each.value.size, null)
+  min_size               = try(each.value.min_size, null)
+  max_size               = try(each.value.max_size, null)
+  autoscaling            = try(each.value.autoscaling, null)
+  autohealing            = try(each.value.autohealing, null)
+  container_runtime      = try(each.value.container_runtime, null)
+  placement_group_id     = try(each.value.placement_group_id, null)
+  kubelet_args           = try(each.value.kubelet_args, null)
+  root_volume_type       = try(each.value.root_volume_type, null)
+  root_volume_size_in_gb = try(each.value.root_volume_size_in_gb, null)
 
   upgrade_policy {
     max_surge       = try(each.value.upgrade_policy.max_surge, null)
