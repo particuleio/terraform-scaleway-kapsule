@@ -29,7 +29,11 @@ output "wildcard_dns" {
 }
 
 output "kubeconfig" {
-  value       = scaleway_k8s_cluster.this.kubeconfig
+  value = {
+    host                   = null_resource.kubeconfig.triggers.host
+    token                  = null_resource.kubeconfig.triggers.token
+    cluster_ca_certificate = base64decode(null_resource.kubeconfig.triggers.cluster_ca_certificate)
+  }
   description = "The Kubernetes configuration."
   sensitive   = true
 }
