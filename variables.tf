@@ -44,6 +44,18 @@ variable "cluster_tags" {
   description = "The tags associated with the Kubernetes cluster"
 }
 
+variable "vpc_tags" {
+  type        = list(any)
+  default     = []
+  description = "The tags associated with the VPC"
+}
+
+variable "pn_tags" {
+  type        = list(any)
+  default     = []
+  description = "The tags associated with the Private Network"
+}
+
 variable "autoscaler_config" {
   default = {}
   type = object({
