@@ -66,7 +66,7 @@ variable "auto_upgrade" {
   type = object({
     enable                        = optional(bool, false)
     maintenance_window_start_hour = optional(number)
-    maintenance_window_day        = optional(number)
+    maintenance_window_day        = optional(string)
   })
   description = "The auto upgrade configuration"
 }
