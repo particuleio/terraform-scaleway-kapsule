@@ -13,6 +13,7 @@ resource "scaleway_k8s_pool" "this" {
   container_runtime  = try(each.value.container_runtime, null)
   placement_group_id = try(each.value.placement_group_id, null)
   kubelet_args       = try(each.value.kubelet_args, null)
+  public_ip_disabled = try(each.value.public_ip_disabled, null)
 
   upgrade_policy {
     max_surge       = try(each.value.upgrade_policy.max_surge, null)
