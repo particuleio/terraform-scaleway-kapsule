@@ -52,6 +52,7 @@ No modules.
 | <a name="input_node_pools"></a> [node\_pools](#input\_node\_pools) | Creates and manages Scaleway Kubernetes cluster pools | `any` | `{}` | no |
 | <a name="input_node_pools_defaults"></a> [node\_pools\_defaults](#input\_node\_pools\_defaults) | Default configuration for Kubernetes cluster pools | `map(any)` | `{}` | no |
 | <a name="input_open_id_connect_config"></a> [open\_id\_connect\_config](#input\_open\_id\_connect\_config) | The OpenID Connect configuration of the cluster | <pre>object({<br>    issuer_url      = optional(string)<br>    client_id       = optional(string)<br>    username_claim  = optional(string)<br>    username_prefix = optional(string)<br>    groups_claim    = optional(list(string))<br>    groups_prefix   = optional(string)<br>    required_claim  = optional(list(string))<br>  })</pre> | `{}` | no |
+| <a name="input_private_network_id"></a> [private\_network\_id](#input\_private\_network\_id) | The ID of the private network the cluster is associated with | `string` | `null` | yes |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | (Defaults to provider project\_id) The ID of the project the cluster is associated with | `string` | `null` | no |
 | <a name="input_region"></a> [region](#input\_region) | (Defaults to provider region) The region in which the cluster should be created | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags applied to all ressources. | `list(string)` | `[]` | no |

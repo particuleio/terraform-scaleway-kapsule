@@ -29,7 +29,7 @@ resource "scaleway_k8s_cluster" "this" {
     }
   }
 
-  private_network_id = scaleway_vpc_private_network.pn_default.id
+  private_network_id = var.private_network_id
 
   feature_gates       = var.feature_gates
   admission_plugins   = var.admission_plugins
