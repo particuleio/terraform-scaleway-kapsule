@@ -30,7 +30,7 @@ variable "project_id" {
 variable "private_network_id" {
   default     = null
   type        = string
-  description = "The ID of the pn used by the cluster"
+  description = "The ID of the private network the cluster is associated with"
 }
 
 variable "cni_plugin" {
