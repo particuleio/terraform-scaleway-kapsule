@@ -8,7 +8,6 @@ locals {
     tags                  = []
     wait_for_pool_ready   = true
     container_runtime     = "containerd"
-    public_ip_disabled    = false
   }
 
   node_pools_defaults = merge(
