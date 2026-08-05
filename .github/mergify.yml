@@ -1,0 +1,55 @@
+pull_request_rules:
+  - name: Automatic merge on approval
+    conditions:
+      - base = main
+      - author != renovate[bot]
+      - "#approved-reviews-by >= 1"
+      - check-success = Max TF pre-commit
+      - check-success = Validate PR title
+      - -draft
+      - label != do-not-merge
+    actions:
+      merge:
+        method: squash
+
+  - name: Automatically approve Renovate PRs (safe updates)
+    conditions:
+      - base = main
+      - author = renovate[bot]
+      - -draft
+      - label != do-not-merge
+      - label = automerge-candidate
+      - label != update-major
+      - label != breaking-change
+    actions:
+      review:
+        type: APPROVE
+        message: Automatically approved (safe Renovate update)
+
+  - name: Automatic merge Renovate PRs (safe updates)
+    conditions:
+      - base = main
+      - author = renovate[bot]
+      - "#approved-reviews-by >= 1"
+      - check-success = Max TF pre-commit
+      - check-success = Validate PR title
+      - -draft
+      - label != do-not-merge
+      - label = automerge-candidate
+      - label != update-major
+      - label != breaking-change
+    actions:
+      merge:
+        method: squash
+
+  - name: Automatic merge on approval release
+    conditions:
+      - base = release
+      - author != renovate[bot]
+      - "#approved-reviews-by >= 1"
+      - -draft
+    actions:
+      merge:
+        method: merge
+merge_protections_settings:
+  reporting_method: check-runs
