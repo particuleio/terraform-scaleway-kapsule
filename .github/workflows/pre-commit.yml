@@ -4,11 +4,14 @@ on:
   pull_request:
     branches:
       - main
-      - master
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 env:
   TERRAFORM_DOCS_VERSION: v0.24.0
+  TFLINT_VERSION: v0.63.1
 
 jobs:
   collectInputs:
@@ -18,11 +21,13 @@ jobs:
       directories: ${{ steps.dirs.outputs.directories }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Get root directories
         id: dirs
-        uses: clowdhaus/terraform-composite-actions/directories@v1.14.0
+        uses: clowdhaus/terraform-composite-actions/directories@462243b714d762cbcac6732098e9fdb4ab236cb7 # v1.14.0
 
   preCommitMinVersions:
     name: Min TF pre-commit
@@ -33,28 +38,34 @@ jobs:
         directory: ${{ fromJson(needs.collectInputs.outputs.directories) }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Terraform min/max versions
         id: minMax
-        uses: clowdhaus/terraform-min-max@v3.0.1
+        uses: clowdhaus/terraform-min-max@5e40f8cf535d84fbd031571abd363ffd81dbfbfc # v3.0.1
         with:
           directory: ${{ matrix.directory }}
 
       - name: Pre-commit Terraform ${{ steps.minMax.outputs.minVersion }}
         # Run only validate pre-commit check on min version supported
         if: ${{ matrix.directory !=  '.' }}
-        uses: clowdhaus/terraform-composite-actions/pre-commit@v1.14.0
+        uses: clowdhaus/terraform-composite-actions/pre-commit@462243b714d762cbcac6732098e9fdb4ab236cb7 # v1.14.0
         with:
           terraform-version: ${{ steps.minMax.outputs.minVersion }}
+          terraform-docs-version: ${{ env.TERRAFORM_DOCS_VERSION }}
+          tflint-version: ${{ env.TFLINT_VERSION }}
           args: "terraform_validate --color=always --show-diff-on-failure --files ${{ matrix.directory }}/*"
 
       - name: Pre-commit Terraform ${{ steps.minMax.outputs.minVersion }}
         # Run only validate pre-commit check on min version supported
         if: ${{ matrix.directory ==  '.' }}
-        uses: clowdhaus/terraform-composite-actions/pre-commit@v1.14.0
+        uses: clowdhaus/terraform-composite-actions/pre-commit@462243b714d762cbcac6732098e9fdb4ab236cb7 # v1.14.0
         with:
           terraform-version: ${{ steps.minMax.outputs.minVersion }}
+          terraform-docs-version: ${{ env.TERRAFORM_DOCS_VERSION }}
+          tflint-version: ${{ env.TFLINT_VERSION }}
           args: "terraform_validate --color=always --show-diff-on-failure --files $(ls *.tf)"
 
   preCommitMaxVersion:
@@ -63,17 +74,19 @@ jobs:
     needs: collectInputs
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          persist-credentials: false
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{github.event.pull_request.head.repo.full_name}}
 
       - name: Terraform min/max versions
         id: minMax
-        uses: clowdhaus/terraform-min-max@v3.0.1
+        uses: clowdhaus/terraform-min-max@5e40f8cf535d84fbd031571abd363ffd81dbfbfc # v3.0.1
 
       - name: Pre-commit Terraform ${{ steps.minMax.outputs.maxVersion }}
-        uses: clowdhaus/terraform-composite-actions/pre-commit@v1.14.0
+        uses: clowdhaus/terraform-composite-actions/pre-commit@462243b714d762cbcac6732098e9fdb4ab236cb7 # v1.14.0
         with:
           terraform-version: ${{ steps.minMax.outputs.maxVersion }}
           terraform-docs-version: ${{ env.TERRAFORM_DOCS_VERSION }}
+          tflint-version: ${{ env.TFLINT_VERSION }}

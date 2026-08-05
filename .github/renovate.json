@@ -1,47 +1,145 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     ":separateMajorReleases",
     ":ignoreUnstable",
     ":prImmediately",
     ":updateNotScheduled",
-    ":automergeDisabled",
     ":disableRateLimiting",
     ":ignoreModulesAndTests",
-    ":autodetectPinVersions",
     ":gitSignOff",
     "group:monorepos",
     "group:recommended",
     "helpers:disableTypesNodeMajor",
     "workarounds:all",
-    ":automergeDigest",
-    ":automergePatch",
-    ":automergeMinor"
+    ":dependencyDashboard",
+    "helpers:pinGitHubActionDigests"
   ],
-  "baseBranches": ["main"],
-  "enabledManagers": ["github-actions", "pre-commit", "terraform"],
+  "baseBranchPatterns": [
+    "main"
+  ],
+  "enabledManagers": [
+    "helmv3",
+    "github-actions",
+    "mise",
+    "pre-commit",
+    "terraform"
+  ],
   "semanticCommits": "enabled",
-  "automergeType": "pr-comment",
-  "automergeComment": "renovate:merge",
-  "reviewers": [
-    "team:team"
-  ],
+  "automerge": false,
+  "platformAutomerge": false,
+  "rebaseWhen": "behind-base-branch",
+  "helmv3": {
+    "enabled": true,
+    "managerFilePatterns": [
+      "/(^|/)helm-dependencies.yaml$/"
+    ]
+  },
+  "pre-commit": {
+    "enabled": true
+  },
+  "commitMessageExtra": "to {{newVersion}} (was {{currentVersion}})",
   "prHourlyLimit": 0,
   "packageRules": [
-      {
-        "matchManagers": ["github-actions"],
-        "semanticCommitScope": "ci",
-        "semanticCommitType": "chore"
-      },
-      {
-        "matchManagers": ["pre-commit"],
-        "semanticCommitScope": "ci",
-        "semanticCommitType": "chore"
-      },
-      {
-        "matchManagers": ["terraform"],
-        "semanticCommitScope": "tf",
-        "semanticCommitType": "feat",
-        "automerge": false
-      }
-    ]
+    {
+      "description": "Label major updates",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "addLabels": [
+        "update-major",
+        "breaking-change"
+      ]
+    },
+    {
+      "description": "Label minor updates",
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "addLabels": [
+        "update-minor"
+      ]
+    },
+    {
+      "description": "Label patch updates",
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "addLabels": [
+        "update-patch"
+      ]
+    },
+    {
+      "description": "Label digest pinning and digest refreshes",
+      "matchUpdateTypes": [
+        "digest",
+        "pinDigest"
+      ],
+      "addLabels": [
+        "update-digest"
+      ]
+    },
+    {
+      "matchManagers": [
+        "github-actions"
+      ],
+      "semanticCommitScope": "ci",
+      "semanticCommitType": "chore"
+    },
+    {
+      "matchManagers": [
+        "mise",
+        "pre-commit"
+      ],
+      "semanticCommitScope": "ci",
+      "semanticCommitType": "chore"
+    },
+    {
+      "matchManagers": [
+        "helmv3"
+      ],
+      "semanticCommitScope": "charts",
+      "semanticCommitType": "fix",
+      "matchUpdateTypes": [
+        "patch",
+        "digest"
+      ]
+    },
+    {
+      "matchManagers": [
+        "helmv3"
+      ],
+      "semanticCommitScope": "charts",
+      "semanticCommitType": "feat",
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ]
+    },
+    {
+      "description": "Only low-risk automation updates are eligible for Mergify automerge",
+      "matchManagers": [
+        "helmv3",
+        "github-actions",
+        "mise",
+        "pre-commit"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "digest"
+      ],
+      "addLabels": [
+        "automerge-candidate"
+      ]
+    },
+    {
+      "matchManagers": [
+        "terraform"
+      ],
+      "semanticCommitScope": "tf",
+      "semanticCommitType": "feat",
+      "automerge": false
+    }
+  ]
 }
