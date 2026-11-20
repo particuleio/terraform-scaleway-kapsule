@@ -27,6 +27,12 @@ variable "project_id" {
   description = "(Defaults to provider project_id) The ID of the project the cluster is associated with"
 }
 
+variable "private_network_id" {
+  default     = null
+  type        = string
+  description = "The ID of the private network the cluster is associated with"
+}
+
 variable "cni_plugin" {
   default     = "cilium"
   type        = string
